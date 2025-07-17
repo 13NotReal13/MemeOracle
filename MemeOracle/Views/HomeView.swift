@@ -9,10 +9,14 @@ import SwiftUI
 
 struct HomeView: View {
     @State private var searchText: String = ""
+    @State var response: APIResponse?
     
     var body: some View {
         VStack {
             QuestionBarView(searchText: $searchText, action: { print("") })
+        }
+        .task {
+            await self.response = try! APIManager().fetchMemes()
         }
     }
 }
