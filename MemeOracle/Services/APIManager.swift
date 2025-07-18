@@ -15,7 +15,6 @@ final class APIManager {
         
         let (data, _) = try await URLSession.shared.data(from: url)
         let response = try JSONDecoder().decode(APIResponse.self, from: data)
-        print(response)
         
         return response
     }

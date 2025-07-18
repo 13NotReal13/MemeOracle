@@ -8,15 +8,20 @@
 import SwiftUI
 
 struct HomeView: View {
-    @State private var searchText: String = ""
-    @State var response: APIResponse?
+    @StateObject private var viewModel = HomeViewModel()
     
     var body: some View {
         VStack {
-            QuestionBarView(searchText: $searchText, action: { print("") })
+            QuestionBarView()
+            
+            AnswerImageView()
+
+            RateButtonsView()
+                .opacity(viewModel.answer == nil ? 0 : 1)
         }
+        .environmentObject(viewModel)
         .task {
-            await self.response = try! APIManager().fetchMemes()
+            await viewModel.getMemeList()
         }
     }
 }

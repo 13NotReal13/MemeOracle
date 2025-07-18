@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct QuestionBarView: View {
-    @Binding var searchText: String
-    var action: () -> Void
+    @EnvironmentObject private var viewModel: HomeViewModel
     
     var body: some View {
         VStack {
@@ -17,7 +16,7 @@ struct QuestionBarView: View {
                 Image(systemName: "magnifyingglass")
                     .foregroundStyle(.gray)
                 
-                TextField("Ask a question", text: $searchText)
+                TextField("Ask a question", text: $viewModel.question)
             }
             .padding()
             .background {
@@ -27,9 +26,9 @@ struct QuestionBarView: View {
             .padding()
             
             Button {
-                action()
+                viewModel.getRandomMeme()
             } label: {
-                Text("Получить предсказание")
+                Text("Get a Prediction")
                     .foregroundStyle(.white)
                     .padding()
                     .frame(maxWidth: .infinity)
@@ -44,8 +43,6 @@ struct QuestionBarView: View {
 }
 
 #Preview {
-    QuestionBarView(
-        searchText: .constant(""),
-        action: { print("") }
-    )
+    QuestionBarView()
+    .environmentObject(HomeViewModel())
 }
