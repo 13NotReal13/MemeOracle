@@ -12,9 +12,15 @@ struct RateButtonsView: View {
     
     var body: some View {
         HStack {
-            RateButtonView(type: .like, action: {} )
+            RateButtonView(
+                type: .like,
+                action: { viewModel.answer = nil }
+            )
             
-            RateButtonView(type: .disslike, action: viewModel.getRandomMeme)
+            RateButtonView(
+                type: .disslike,
+                action: viewModel.getRandomMeme
+            )
         }
     }
 }
@@ -30,7 +36,9 @@ struct RateButtonView: View {
     
     var body: some View {
         Button {
-            action()
+            withAnimation {
+                action()
+            }
         } label: {
             Text(type == .like ? "👍🏻" : "👎🏻")
                 .padding()

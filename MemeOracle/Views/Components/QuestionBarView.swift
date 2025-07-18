@@ -34,10 +34,11 @@ struct QuestionBarView: View {
                     .frame(maxWidth: .infinity)
                     .background {
                         RoundedRectangle(cornerRadius: 15)
-                            .foregroundStyle(.cyan)
+                            .foregroundStyle(viewModel.question.isEmpty ? .gray : .cyan)
                     }
                     .padding(.horizontal)
             }
+            .disabled(viewModel.question.isEmpty)
         }
     }
 }
